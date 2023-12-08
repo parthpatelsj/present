@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealMarkdown from 'reveal.js/plugin/markdown/markdown';
@@ -9,13 +9,13 @@ import { KirtanProvider, useKirtanContext } from '../../useKirtanContext';
 import 'reveal.js/dist/reveal.css';
 import KirtanDropdown from '../KirtanSelector';
 
-
 const Deck = ({ children }) => {
   const { selectedKirtanIndex, setSelectedKirtanIndex } = useKirtanContext();
+  const [showDropdown, setShowDropdown] = useState(true);
 
   const handleChangeKirtan = (newIndex) => {
-    // Change the selected kirtan index
     setSelectedKirtanIndex(newIndex);
+    setShowDropdown(false); // Hide the dropdown after changing the kirtan
   };
 
   useEffect(() => {
@@ -23,14 +23,15 @@ const Deck = ({ children }) => {
       ...revealOptions,
       plugins: [RevealNotes, RevealMarkdown],
     });
-  });
+  }, []);
+
   return (
     <>
-    <KirtanDropdown />  
-    <div className="reveal">
-      <div className="slides">{children}</div>
-      {/* <Author>@parthpatelsj</Author> */}
-    </div>
+      {showDropdown && <KirtanDropdown />}
+      <div className="reveal">
+        <div className="slides">{children}</div>
+        {/* <Author>@parthpatelsj</Author> */}
+      </div>
     </>
   );
 };
