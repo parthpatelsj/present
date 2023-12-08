@@ -5,6 +5,13 @@ const AdminPage = () => {
   const [inputText, setInputText] = useState('');
   const [feedback, setFeedback] = useState(null);
   const [textSubmitted, setTextSubmitted] = useState(false);
+  const [videoId, setVideoId] = useState('');
+
+  const handleVideoInputChange = (e) => {
+    setVideoId(e.target.value);
+    setFeedback(null);
+    setTextSubmitted(false);
+  }
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -25,6 +32,18 @@ const AdminPage = () => {
     }
   };
 
+  const handleSaveButtonClick = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/saveVideoId`, {
+        videoId: videoId, // Use the correct variable
+      });
+      setFeedback({ type: 'success', message: 'Video ID saved successfully' });
+    } catch (error) {
+      setFeedback({ type: 'error', message: `Error saving video ID: ${error.message}` });
+    }
+  };
+  
+
   return (
     <div style={styles.container}>
       <div style={styles.content}>
@@ -43,6 +62,22 @@ const AdminPage = () => {
           </label>
           <button onClick={handleShowButtonClick} style={styles.button}>
             Show Text
+          </button>
+        </div>
+        <div style={styles.inputContainer}>
+          <label style={styles.label}>
+            Enter Video ID:
+            <br />
+            <textarea
+              rows="4"
+              cols="10"
+              value={videoId}
+              onChange={handleVideoInputChange}
+              style={styles.textarea}
+            />
+          </label>
+          <button onClick={handleSaveButtonClick} style={styles.button}>
+            Change video
           </button>
         </div>
         {feedback && (
