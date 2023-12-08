@@ -93,7 +93,7 @@ base_url = "https://anirdesh.com/kirtan/index.php"
 lang = "EN"
 
 # Define the range for part and no parameters
-part_range = range(1, 3)  # Assuming it starts from 1 and ends at 2
+part_range = range(2, 3)  # Assuming it starts from 1 and ends at 2
 no_range = range(801, 10000)  # Assuming it starts from 1 and ends at 99
 
 # Create a directory to store individual JSON files
