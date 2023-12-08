@@ -19,10 +19,16 @@ const Deck = ({ children }) => {
   };
 
   useEffect(() => {
-    Reveal.initialize({
-      ...revealOptions,
-      plugins: [RevealNotes, RevealMarkdown],
-    });
+    // Initialize Reveal after a delay of 2 seconds
+    const timeoutId = setTimeout(() => {
+      Reveal.initialize({
+        ...revealOptions,
+        plugins: [RevealNotes, RevealMarkdown],
+      });
+    }, 2000);
+
+    // Cleanup the timeout to avoid memory leaks
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (

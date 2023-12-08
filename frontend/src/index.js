@@ -10,13 +10,14 @@ import './index.css';
 import './Themes/override.css';
 import 'reveal.js/dist/theme/black.css';
 import { KirtanProvider } from './useKirtanContext';
-
+import VideoBackground from './Components/VideoBackground';
+VideoBackground
 const App = () => (
   <Router>
     <Routes>
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/" element={
-          <div className="App"><KirtanProvider><Deck>{Slides}</Deck></KirtanProvider></div>
+          <div className="App"><KirtanProvider><VideoBackground/><Deck>{Slides}</Deck></KirtanProvider></div>
       } />
     </Routes>
   </Router>
