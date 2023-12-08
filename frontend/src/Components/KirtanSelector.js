@@ -2,6 +2,22 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import Modal from 'react-modal';
 import { useKirtanContext } from '../useKirtanContext';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  padding: 10px 15px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+`;
 
 const KirtanDropdown = () => {
   const { selectedKirtanIndex, setSelectedKirtanIndex, availableKirtans } = useKirtanContext();
@@ -27,9 +43,11 @@ const KirtanDropdown = () => {
 
   const modalStyles = {
     content: {
-      maxWidth: '300px',
+      maxWidth: '30%',
+      width: '80%',
+      maxHeight: '40%',
       margin: 'auto',
-      padding: '20px',
+      padding: '10px',
       borderRadius: '8px',
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
     },
@@ -43,7 +61,7 @@ const KirtanDropdown = () => {
 
   return (
     <>
-      <button onClick={openModal}>Open Kirtan Selector</button>
+      <StyledButton onClick={openModal}>Open Kirtan Selector</StyledButton>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Select Kirtan" style={modalStyles} ariaHideApp={false}>
         <Select
           value={{ value: selectedKirtanIndex, label: availableKirtans[selectedKirtanIndex] }}
