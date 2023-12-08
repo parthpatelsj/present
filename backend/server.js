@@ -7,13 +7,19 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.NODE_ENV === 'production' ? 'https://present-baps.netlify.app' : '*',
     methods: ['GET', 'POST'],
   },
 });
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' ? 'https://present-baps.netlify.app' : '*',
+  methods: ['GET', 'POST'],
+};
+
+app.use(cors(corsOptions));
 
 let currentText = 'Default Text'; // Initialize with a default value
 
