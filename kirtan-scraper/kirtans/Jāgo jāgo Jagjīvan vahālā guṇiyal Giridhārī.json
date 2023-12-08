@@ -11,9 +11,17 @@
   ],
   "title": "Jāgo jāgo Jagjīvan vahālā guṇiyal Giridhārī",
   "metadata": {
+<<<<<<< Updated upstream
     "kirtan_info": "<div class=\"kirtan_info\" id=\"kirtan-info_en\">\n<p class=\"no_info_en\">2-37: Sadguru Brahmanand Swami</p>\n<p class=\"no_info_en\">Category: Shri Harina Pad</p>\n</div>",
     "media_info": {}
   },
   "part": 2,
   "no": 37
+=======
+    "kirtan_info": "<div class=\"kirtan_info\" id=\"kirtan-info_en\">\n<p class=\"no_info_en\">1-5004: Sadguru Brahmanand Swami</p>\n<p class=\"no_info_en\">Category: Prabhatiya</p>\n</div>",
+    "media_info": {}
+  },
+  "part": 1,
+  "no": 5004
+>>>>>>> Stashed changes
 }

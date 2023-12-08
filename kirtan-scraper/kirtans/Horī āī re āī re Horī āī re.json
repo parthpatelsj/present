@@ -4,7 +4,11 @@
     "Horī āī Shyām bihārī re... °ṭek",
     "Shrī Ghanshyām kām sab pūran, suniye binati hamārī;",
     "Ham tum sang Prabhu khelan chāhe, hot umang ur bhārī,",
+<<<<<<< Updated upstream
     "Kahat yu muni brahmachārī... ° 1",
+=======
+    "Kahat yu muni brahmachāri... ° 1",
+>>>>>>> Stashed changes
     "Ek or tum Prabhu sakhā sang leu, ek or ham vratdhārī;",
     "Jo hāre so faguvā dehe, ye hi pratignā dhārī,",
     "Kīnī angiyā banvārī... ° 2",
@@ -17,9 +21,17 @@
   ],
   "title": "Horī āī re āī re Horī āī re",
   "metadata": {
+<<<<<<< Updated upstream
     "kirtan_info": "<div class=\"kirtan_info\" id=\"kirtan-info_en\">\n<p class=\"no_info_en\">2-102: Sadguru Premanand Swami</p>\n<p class=\"no_info_en\">Category: Shri Harina Pad</p>\n</div>",
     "media_info": {}
   },
   "part": 2,
   "no": 102
+=======
+    "kirtan_info": "<div class=\"kirtan_info\" id=\"kirtan-info_en\">\n<p class=\"no_info_en\">1-5008: Sadguru Premanand Swami</p>\n<p class=\"no_info_en\">Category: Utsavna Pad</p>\n</div>",
+    "media_info": {}
+  },
+  "part": 1,
+  "no": 5008
+>>>>>>> Stashed changes
 }
