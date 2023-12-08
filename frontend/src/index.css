@@ -23,3 +23,16 @@ code {
 .inline-link {
   text-decoration: underline;
 }
+
+#logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+#logo-container img {
+  max-width: 20%; /* Ensure the logo doesn't exceed its container */
+  height: auto;
+}

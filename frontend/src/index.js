@@ -6,7 +6,7 @@ import Slides from './Slides';
 
 import './index.css';
 import './Themes/override.css';
-import 'reveal.js/dist/theme/dracula.css';
+import 'reveal.js/dist/theme/black.css';
 
 
 const App = () => (

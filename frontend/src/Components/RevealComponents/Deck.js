@@ -18,7 +18,7 @@ const Deck = ({ children }) => {
   return (
     <div className="reveal">
       <div className="slides">{children}</div>
-      <Author>@parthpatelsj</Author>
+      {/* <Author>@parthpatelsj</Author> */}
     </div>
   );
 };

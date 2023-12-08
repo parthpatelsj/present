@@ -1,0 +1,15 @@
+/* BlinkingText.css */
+
+.blinking-text {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .blinking-text.visible {
+    opacity: 1;
+  }
+  
+  .blinking-text.hidden {
+    opacity: 0;
+  }
+  

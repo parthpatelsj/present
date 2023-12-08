@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Slide from '../Components/RevealComponents/Slide';
 import Note from '../Components/Notes/note';
 import socketIOClient from 'socket.io-client';
+import BlinkingText from '../Components/BlinkingText/BlinkingText';
 
 const TitleSlide = () => {
   const [displayText, setDisplayText] = useState('');
-  
+
   useEffect(() => {
-    // Update the URL to point to your Heroku backend
-    const socket = socketIOClient('https://desolate-fjord-44229-7200a2be3131.herokuapp.com/');
+    const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL);
 
     socket.on('text', (data) => {
       setDisplayText(data.text);
@@ -21,9 +21,10 @@ const TitleSlide = () => {
 
   return (
     <Slide>
-      <h2>Building talks with Reveal.js (with React)</h2>
-      <p>Parth Patel</p>
-      {displayText && <p>{displayText}</p>}
+      <div id="logo-container">
+        <img src="logo.png" alt="Logo" />
+      </div>
+      {displayText && <BlinkingText text={displayText} />} {/* Use the BlinkingText component */}
       <Note>
         <ul>
           {/* Other static content */}
