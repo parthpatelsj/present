@@ -1,6 +1,5 @@
 {
   "song_lyrics": [
-<<<<<<< Updated upstream
     "Jamo jamone mārā Ṭhākariyā,",
     "Harivar māre hāthe jamāḍu,",
     "Sundar lāḍu sākariyā...",
@@ -24,23 +23,4 @@
   },
   "part": 2,
   "no": 33
-=======
-    "Jamo jamone mārā Ṭhākariyā",
-    "Harivar māre hāthe jamāḍu,",
-    "Sundar lāḍu sākariyā... °ṭek",
-    "Penḍā barafī, khājā jalebī, marakī mesubane ghebariyā,",
-    "Shīro pūrī kansār hariso, bīranj jamo kahānā kesariyā... Tame° 1",
-    "Bhajiyā vaḍā taḷyā chhe pāpaḍ, mīṭhu jīru nākhīne mariyā,",
-    "Shāk pāk sundarvar jamajo, rāytanā sundar daithariyā... Tame° 2",
-    "Āmbā mo’rnā bhāt anopam, dūdh sākar jamo Giridhariyā,",
-    "Vadhe te Premānandne āpo, Dharmakuvar rangnā bhariyā... Tame° 3"
-  ],
-  "title": "Jamo jamone mārā Ṭhākariyā",
-  "metadata": {
-    "kirtan_info": "<div class=\"kirtan_info\" id=\"kirtan-info_en\">\n<p class=\"no_info_en\">1-5003: Sadguru Premanand Swami</p>\n<p class=\"no_info_en\">Category: Thal</p>\n</div>",
-    "media_info": {}
-  },
-  "part": 1,
-  "no": 5003
->>>>>>> Stashed changes
 }
