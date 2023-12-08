@@ -44,6 +44,6 @@ code {
   width: 150%;
   height: 150%;
   z-index: -1; /* Set a lower z-index to place it behind other elements */
-  opacity: 0.7; /* Adjust the opacity as needed (0.0 to 1.0) */
+  opacity: 0.5; /* Adjust the opacity as needed (0.0 to 1.0) */
 
 }
