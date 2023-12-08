@@ -19,8 +19,9 @@
     "styled-system": "^5.1.5"
   },
   "scripts": {
+    "generate-kirtan-list": "node ./generateKirtansList.js",
+    "build": "npm run generate-kirtan-list && react-scripts build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "browserslist": {

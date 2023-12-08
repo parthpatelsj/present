@@ -30,16 +30,7 @@ const TitleSlide = () => {
           <img src="logo.png" alt="Logo" />
         </div>
         {displayText && <BlinkingText text={displayText} />} {/* Use the BlinkingText component */}
-        <Note>
-          <ul>
-            {/* Other static content */}
-            <li>Hi all</li>
-            <li>Intro: Spotify, platform</li>
-            <li>This talk is about</li>
-            <li>I'm not affiliated or an expert, just love the web</li>
-            <li>Questions</li>
-          </ul>
-        </Note>
+
       </Slide>
     </>
   );
