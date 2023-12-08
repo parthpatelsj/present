@@ -5,7 +5,6 @@ import Slide from '../Components/RevealComponents/Slide';
 import Note from '../Components/Notes/note';
 import socketIOClient from 'socket.io-client';
 import BlinkingText from '../Components/BlinkingText/BlinkingText';
-import VideoBackground from '../Components/VideoBackground';
 
 const TitleSlide = () => {
   const [displayText, setDisplayText] = useState('');
@@ -24,22 +23,11 @@ const TitleSlide = () => {
 
   return (
     <>
-      <VideoBackground /> {/* Add the VideoBackground component */}
       <Slide>
         <div id="logo-container">
           <img src="logo.png" alt="Logo" />
         </div>
         {displayText && <BlinkingText text={displayText} />} {/* Use the BlinkingText component */}
-        <Note>
-          <ul>
-            {/* Other static content */}
-            <li>Hi all</li>
-            <li>Intro: Spotify, platform</li>
-            <li>This talk is about</li>
-            <li>I'm not affiliated or an expert, just love the web</li>
-            <li>Questions</li>
-          </ul>
-        </Note>
       </Slide>
     </>
   );

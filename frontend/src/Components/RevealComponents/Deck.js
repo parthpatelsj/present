@@ -1,25 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealMarkdown from 'reveal.js/plugin/markdown/markdown';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import revealOptions from './revealOptions';
-
+import { KirtanProvider, useKirtanContext } from '../../useKirtanContext';
 import 'reveal.js/dist/reveal.css';
+import KirtanDropdown from '../KirtanSelector';
 
 const Deck = ({ children }) => {
+  const { selectedKirtanIndex, setSelectedKirtanIndex } = useKirtanContext();
+  const [showDropdown, setShowDropdown] = useState(true);
+
+  const handleChangeKirtan = (newIndex) => {
+    setSelectedKirtanIndex(newIndex);
+    setShowDropdown(false); // Hide the dropdown after changing the kirtan
+  };
+
   useEffect(() => {
-    Reveal.initialize({
-      ...revealOptions,
-      plugins: [RevealNotes, RevealMarkdown],
-    });
-  });
+    // Initialize Reveal after a delay of 2 seconds
+    const timeoutId = setTimeout(() => {
+      Reveal.initialize({
+        ...revealOptions,
+        plugins: [RevealNotes, RevealMarkdown],
+      });
+    }, 2000);
+
+    // Cleanup the timeout to avoid memory leaks
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
-    <div className="reveal">
-      <div className="slides">{children}</div>
-      {/* <Author>@parthpatelsj</Author> */}
-    </div>
+    <>
+      {showDropdown && <KirtanDropdown />}
+      <div className="reveal">
+        <div className="slides">{children}</div>
+        {/* <Author>@parthpatelsj</Author> */}
+      </div>
+    </>
   );
 };
 
