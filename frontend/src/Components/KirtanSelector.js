@@ -1,34 +1,19 @@
-// KirtanSelector.js
+// KirtanDropdown.js
+import React from 'react';
+import { useKirtanContext } from '../useKirtanContext';
 
-import React, { useState, useEffect } from 'react';
+const KirtanDropdown = () => {
+  const { selectedKirtanIndex, setSelectedKirtanIndex, availableKirtans } = useKirtanContext();
 
-const KirtanSelector = ({ onSelectKirtan }) => {
-  const [availableKirtans, setAvailableKirtans] = useState([]);
-
-  // Function to fetch the list of available kirtans
-  const fetchAvailableKirtans = async () => {
-    try {
-      const response = await fetch('/kirtans/kirtanList.json');
-      const kirtanList = await response.json();
-      setAvailableKirtans(kirtanList.map((kirtan) => kirtan.title));
-    } catch (error) {
-      console.error('Error fetching available kirtans:', error.message);
-      console.log('Response content:', error.response && (await error.response.text()));
-    }
+  const handleChange = (event) => {
+    const newIndex = event.target.value;
+    setSelectedKirtanIndex(newIndex);
   };
 
-  // Use useEffect to fetch available kirtans when the component mounts
-  useEffect(() => {
-    fetchAvailableKirtans();
-  }, []);
-
   return (
-    <select
-      onChange={(e) => onSelectKirtan(e.target.value)}
-    >
-      <option value="" disabled>Select a kirtan</option>
-      {availableKirtans.map((kirtan) => (
-        <option key={kirtan} value={kirtan}>
+    <select value={selectedKirtanIndex} onChange={handleChange}>
+      {availableKirtans.map((kirtan, index) => (
+        <option key={index} value={index}>
           {kirtan}
         </option>
       ))}
@@ -36,4 +21,4 @@ const KirtanSelector = ({ onSelectKirtan }) => {
   );
 };
 
-export default KirtanSelector;
+export default KirtanDropdown;

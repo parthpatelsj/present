@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import KirtanLyrics from './Lyrics';
 import Reveal from 'reveal.js';
-
+import { useKirtanContext } from '../useKirtanContext';
 const Kirtan = () => {
-  const [selectedKirtan, setSelectedKirtan] = useState('');
+  const {
+    selectedKirtanIndex,
+    setSelectedKirtanIndex,
+    availableKirtans,
+    setAvailableKirtans,
+  } = useKirtanContext();
   const [kirtanData, setKirtanData] = useState(null);
-  const [availableKirtans, setAvailableKirtans] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const initializeReveal = () => {
@@ -29,45 +33,59 @@ const Kirtan = () => {
   };
 
   // Function to fetch the list of available kirtans
-  const fetchAvailableKirtans = async () => {
-    try {
-      const response = await fetch('/kirtans/kirtanList.json');
-      const kirtanList = await response.json();
-      setAvailableKirtans(kirtanList.map((kirtan) => kirtan.title));
+// Function to fetch the list of available kirtans
+const fetchAvailableKirtans = async () => {
+  try {
+    const response = await fetch('/kirtans/kirtanList.json');
+    const kirtanList = await response.json();
 
-      // Default to the first kirtan in the list
-      if (kirtanList.length > 0) {
-        setSelectedKirtan(kirtanList[0].title);
-        loadKirtanData(kirtanList[0].title);
-      }
-    } catch (error) {
-      console.error('Error fetching available kirtans:', error.message);
-      console.log('Response content:', error.response && (await error.response.text()));
+    // Set availableKirtans in the context
+    setAvailableKirtans(kirtanList.map((kirtan) => kirtan.title));
+
+    // Default to the first kirtan in the list
+    if (kirtanList.length > 0) {
+      setSelectedKirtanIndex(0);
+      loadKirtanData(kirtanList[0].title);
     }
-  };
+  } catch (error) {
+    console.error('Error fetching available kirtans:', error.message);
+    console.log('Response content:', error.response && (await error.response.text()));
+  }
+};
 
-  // Use useEffect to fetch available kirtans when the component mounts
-  useEffect(() => {
-    fetchAvailableKirtans();
-  }, []);
+// Use useEffect to fetch available kirtans when the component mounts
+useEffect(() => {
+  fetchAvailableKirtans();
+}, []);
 
-  // Use useEffect to initialize reveal.js after data has been loaded
-  useEffect(() => {
-    if (!loading) {
-      initializeReveal();
-    }
-  }, [loading]);
+// Use useEffect to initialize reveal.js after data has been loaded
+useEffect(() => {
+  if (!loading) {
+    initializeReveal();
+  }
+}, [loading]);
+
+// Update selected kirtan when the component mounts or whenever needed
+useEffect(() => {
+  // Fetch the kirtan data based on the selected index
+  const selectedKirtan = availableKirtans[selectedKirtanIndex];
+  // Use setSelectedKirtanIndex instead of setSelectedKirtan
+  setSelectedKirtanIndex(selectedKirtanIndex);
+  if (selectedKirtan) {
+    console.log(selectedKirtan);
+    loadKirtanData(selectedKirtan);
+  }
+}, [selectedKirtanIndex]);
 
 
   return (
     <>
-
-      {loading ? (
-        <p>Loading kirtan...</p>
-      ) : (
-        <KirtanLyrics kirtanData={kirtanData} />
-      )}
-    </>
+    {loading ? (
+      <p>Loading kirtan...</p>
+    ) : (
+      <KirtanLyrics kirtanData={kirtanData} />
+    )}
+  </>
   );
 };
 
