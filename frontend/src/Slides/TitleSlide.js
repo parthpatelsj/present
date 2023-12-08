@@ -7,7 +7,8 @@ const TitleSlide = () => {
   const [displayText, setDisplayText] = useState('');
   
   useEffect(() => {
-    const socket = socketIOClient('http://localhost:5001');
+    // Update the URL to point to your Heroku backend
+    const socket = socketIOClient('https://desolate-fjord-44229-7200a2be3131.herokuapp.com/');
 
     socket.on('text', (data) => {
       setDisplayText(data.text);
