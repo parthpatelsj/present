@@ -6,17 +6,32 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import revealOptions from './revealOptions';
 import { KirtanProvider, useKirtanContext } from '../../useKirtanContext';
+import socketIOClient from 'socket.io-client';
 import 'reveal.js/dist/reveal.css';
 import KirtanDropdown from '../KirtanSelector';
+import BlinkingText from '../BlinkingText/BlinkingText';
 
 const Deck = ({ children }) => {
   const { selectedKirtanIndex, setSelectedKirtanIndex } = useKirtanContext();
   const [showDropdown, setShowDropdown] = useState(true);
+  const [displayText, setDisplayText] = useState('');
 
   const handleChangeKirtan = (newIndex) => {
     setSelectedKirtanIndex(newIndex);
     setShowDropdown(false); // Hide the dropdown after changing the kirtan
   };
+
+  useEffect(() => {
+    const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL);
+
+    socket.on('text', (data) => {
+      setDisplayText(data.text);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     // Initialize Reveal after a delay of 2 seconds
@@ -36,7 +51,7 @@ const Deck = ({ children }) => {
       {showDropdown && <KirtanDropdown />}
       <div className="reveal">
         <div className="slides">{children}</div>
-        {/* <Author>@parthpatelsj</Author> */}
+        <Author>{displayText && <BlinkingText text={displayText} />}</Author>
       </div>
     </>
   );
@@ -45,7 +60,8 @@ const Deck = ({ children }) => {
 const Author = styled.h6`
   position: fixed;
   bottom: 0;
-  left: 20px;
+  right: 20px;
+  opacity: 0.5;
 `;
 
 Deck.propTypes = {
