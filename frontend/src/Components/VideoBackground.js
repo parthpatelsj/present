@@ -8,7 +8,7 @@ const VideoBackground = () => (
     <iframe
       width="100%"
       height="100%"
-      src={`https://www.youtube.com/embed/QoytNH5Lq6M?autoplay=1&mute=1&loop=1&playlist=QoytNH5Lq6M`}
+      src={`https://www.youtube.com/embed/QoytNH5Lq6M?autoplay=1&mute=1&loop=1&playlist=QoytNH5Lq6M&start=10`}
       frameBorder="0"
       allowFullScreen
       title="YouTube Background Video"
