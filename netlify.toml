@@ -1,0 +1,3 @@
+[build]
+  command = "npm run build"  # or whatever command you use to build your React app
+  publish = "frontend/build"  # path to the build output directory
