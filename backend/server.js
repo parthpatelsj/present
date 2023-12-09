@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+
+let currentVideoId = "QoytNH5Lq6M";
 const io = socketIO(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' ? 'https://present-baps.netlify.app' : '*',
@@ -35,6 +37,24 @@ app.post('/api/sendText', (req, res) => {
 
   // Respond to the API request
   res.json({ success: true, message: 'Text sent successfully' });
+});
+
+app.get('/api/getVideoId', (req, res) => {
+  // Return the current video ID
+  res.json({ videoId: currentVideoId });
+});
+
+app.post('/api/saveVideoId', (req, res) => {
+  const { videoId } = req.body;
+
+  // Save the new video ID
+  currentVideoId = videoId;
+
+  // Respond to the API request
+  res.json({ success: true, message: 'Video ID saved successfully' });
+
+  // Emit the updated video ID to connected clients (if using Socket.IO)
+  io.emit('videoId', { videoId: currentVideoId });
 });
 
 // Initial connection, send the current text to the client
