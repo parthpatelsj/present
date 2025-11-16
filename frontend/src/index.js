@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Deck from './Components/RevealComponents/Deck';
 import Slides from './Slides';
 import AdminPage from './Components/AdminPage';
+import KeyboardShortcuts from './Components/KeyboardShortcuts';
 import './index.css';
 import './Themes/override.css';
 import 'reveal.js/dist/theme/black.css';
@@ -13,49 +14,51 @@ import VideoBackground from './Components/VideoBackground';
 
 const App = () => {
   const [selectedVideoId, setSelectedVideoId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchVideoId = async () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/getVideoId`);
+        if (!response.ok) throw new Error('Failed to fetch video ID');
         const data = await response.json();
         setSelectedVideoId(data.videoId);
       } catch (error) {
         console.error('Error fetching video ID:', error.message);
+        setSelectedVideoId('QoytNH5Lq6M'); // Fallback video
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchVideoId();
   }, []);
 
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === 'p' || event.key === 'P') {
+      const deck = document.querySelector('.reveal');
+      const videoBackground = document.querySelector('.video-background');
+
+      if (!deck || !videoBackground) return;
+
+      const isVideoMode = deck.style.opacity === '0';
+
+      deck.style.transition = 'opacity 1s ease-in-out';
+      videoBackground.style.transition = 'opacity 1s ease-in-out';
+
+      deck.style.opacity = isVideoMode ? '1' : '0';
+      videoBackground.style.opacity = isVideoMode ? '0.7' : '1';
+    }
+  }, []);
+
   useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (event.key === 'p') {
-        // Fade out Deck component
-        const deck = document.querySelector('.reveal'); // replace with the actual class or ID of your Deck component
-        deck.style.transition = 'opacity 1s';
-        const videoBackground = document.querySelector('.video-background');
-        videoBackground.style.transition = 'opacity 1s';
-
-        if (deck.style.opacity == 1) {
-          deck.style.opacity = 0;
-          // Fade in video background
-          videoBackground.style.opacity = 1;
-        } else {
-          deck.style.opacity = 1;
-          videoBackground.style.opacity = 0.7
-        }
-
-        
-      }
-    };
-
     document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [handleKeyPress]);
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  }, []); // Empty dependency array means this effect will run once when the component mounts
+  if (isLoading) {
+    return <div className="loading">Loading presentation...</div>;
+  }
 
   return (
     <Router>
@@ -68,6 +71,7 @@ const App = () => {
               <KirtanProvider>
                 <VideoBackground videoId={selectedVideoId} />
                 <Deck className="deck-class">{Slides}</Deck>
+                <KeyboardShortcuts />
               </KirtanProvider>
             </div>
           }
@@ -77,4 +81,5 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
